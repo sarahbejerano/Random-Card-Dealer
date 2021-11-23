@@ -36,10 +36,9 @@ function randomCard(cards) {
   const random = Math.floor(Math.random() * 51);
   const cardValue = cards[random].value;
   const cardSuit = cards[random].suit;
-  let cardBody;
-  cardSuit === "Diamonds"
-    ? (cardBody = "&diams;")
-    : (cardBody = "&" + cardSuit.toLowerCase() + ";");
+
+  const cardBody =
+    cardSuit === "Diamonds" ? "&diams;" : "&" + cardSuit.toLowerCase() + ";";
 
   const card = document.createElement("div");
   card.classList.add("card", cardSuit.toLowerCase());
@@ -56,5 +55,6 @@ function randomCard(cards) {
     "</span>";
   document.body.appendChild(card);
 }
+
 const cards = deckBuilder();
 randomCard(cards);

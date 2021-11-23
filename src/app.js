@@ -1,67 +1,60 @@
-import { bottom } from "@popperjs/core";
+//function that we'll use to generate an array with the 52 plating cards
 import "./style.css";
+function deckBuilder() {
+  const values = [
+    "A",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K"
+  ];
+  const suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
 
-const symbols = ["\u2660", "\u2663", "	\u2665", "	\u2666"];
-const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "J", "Q", "K"];
-let topSymbol = document.querySelector("#topSymbol");
-let centerNumber = document.querySelector("#centerNumber");
-let bottomSymbol = document.querySelector("#bottomSymbol");
+  // Next loop through the suits array whilst also looping through the values array and push the combined data into the cards array:
 
-function cardSelection(arr1, arr2) {
-  let card = [];
-  card.push(arr1[Math.floor(Math.random() * arr1.length)]);
-  card.push(arr2[Math.floor(Math.random() * arr2.length)]);
-  return card;
-}
-
-function colorSelector(arr) {
-  if (arr[0] === "	\u2665" || arr[0] === "	\u2666") {
-    top.style.color = "red";
-    bottom.style.color = "red";
+  const cards = [];
+  for (let s = 0; s < suits.length; s++) {
+    for (let v = 0; v < values.length; v++) {
+      const value = values[v];
+      const suit = suits[s];
+      cards.push({ value, suit });
+    }
   }
-  else {
-    top.style.color = "black";
-    bottom.style.color = "black";
-  }
+  return cards;
 }
-function symbolSelect(arr) {
-  if (arr[0] === "	\u2665") {
-    top.innerHTML = "	\u2665"
-    bottom.innerHTML = "	\u2665"
-  } else if (arr[0] === "	\u2666") {
-    top.innerHTML = "	\u2666"
-    bottom.innerHTML = "	\u2666"
-  } else if (arr[0] === "	\u2663") {
-    top.innerHTML = "	\u2663",
-      bottom.innerHTML = "	\u2663",
-  } else if {
-    top.innerHTML = "	\u2660",
-    bottom.innerHTML = "	\u2660",
-  }  else if (arr[0] === "	\u2666") {
-    top.innerHTML = "	\u2666",
-      bottom.innerHTML = "	\u2666",
-  }
-  else if (arr[0] === "	\u2663") {
-    top.innerHTML = "	\u2663",
-      bottom.innerHTML = "	\u2663",
-  }
-  else {
-    top.innerHTML = "	\u2660"
-    bottom.innerHTML = "	\u2660"
-  }
+// a esta funcion le pasaremos los arrays de cards
 
+function randomCard(cards) {
+  const random = Math.floor(Math.random() * 51);
+  const cardValue = cards[random].value;
+  const cardSuit = cards[random].suit;
+  let cardBody;
+  cardSuit === "Diamonds"
+    ? (cardBody = "&diams;")
+    : (cardBody = "&" + cardSuit.toLowerCase() + ";");
 
+  const card = document.createElement("div");
+  card.classList.add("card", cardSuit.toLowerCase());
+  card.innerHTML =
+    '<span class="card-value-suit-top">' +
+    cardBody +
+    "</span>" +
+    '<span class="card-value-center">' +
+    cardValue +
+    "</span>" +
+    '<span class="card-value-suit-bot">' +
+    cardBody +
+    "</span>" +
+    "</span>";
+  document.body.appendChild(card);
 }
-function cardValue(arr) {
-  numbers.innerHTML = arr[1];
-}
-function cardGenerator(params) {
-  let card = cardChoose(symbols, numbers);
-  numberAssig(card);
-  colorAssig(card);
-  symbolsAssig(card);
-
-}
-
-
-window.onload = function () { cardGenerator };
+const cards = deckBuilder();
+randomCard(cards);
